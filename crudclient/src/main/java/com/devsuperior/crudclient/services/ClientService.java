@@ -25,4 +25,11 @@ public class ClientService {
     public Page<Client> findAll(Pageable pageable) {
         return repository.findAll(pageable);
     }
+
+    @Transactional
+    public Client insert(Client client) {
+        Client entity = client;
+        entity = repository.save(entity);
+        return entity;
+    }
 }
