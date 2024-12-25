@@ -1,6 +1,10 @@
 package com.devsuperior.crudclient.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
 import java.util.Objects;
@@ -12,11 +16,19 @@ public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotBlank(message = "Campo requerido")
+    @Size(min = 3, max = 80, message = "Nome precisa ter de 3 a 80 caracteres")
     private String name;
 
+    @NotBlank(message = "Campo CPF é requerido")
     @Column(unique = true)
     private String cpf;
+
+    @Positive(message = "O salário deve ser positivo")
     private Double income;
+
+    @PastOrPresent(message = "Data inválida")
     private LocalDate birthDate;
     private Integer children;
 

@@ -37,4 +37,16 @@ public class ClientController {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(client.getId()).toUri();
         return ResponseEntity.created(uri).body(client);
     }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<Client> update(@PathVariable Long id, @Valid @RequestBody Client client) {
+        client = service.update(id, client);
+        return ResponseEntity.ok(client);
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        service.delete(id);
+        return ResponseEntity.noContent().build();
+    }
 }
